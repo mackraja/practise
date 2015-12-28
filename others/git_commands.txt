@@ -1,4 +1,6 @@
-More : https://github.com/github/hub
+More : https://education.github.com/git-cheat-sheet-education.pdf
+
+<!------------- Steps --------------->
 
 git init
 git clone [repository path]
@@ -12,3 +14,7 @@ git add [file path OR . ]
 git commit -m "message" [file path]
 git push
 	enter username and password
+
+git status -s
+git log --follow [file path]
+git diff [file path]
