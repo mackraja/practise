@@ -1,0 +1,12 @@
+<!-----Commit on localserver------->
+
+svn add ---> To add file or folder
+svn up [filepath] ----> To update 
+svn st ---> check status
+svn st -u ----> status of pending and original file
+svn diff [filepath] ----> check file difference
+svn diff -r [reivision_one] : [revision_two] [filepath] ----> To check the diff. between two revisions
+svn log [filepath] -----> To check who commit that file.
+svn --limit [no. of last records] log [filepath] ---> To find out last records with limit
+svn ci -m "" [filepath] ----> To commit
+svn co [filepath] ----> To checkout the project
