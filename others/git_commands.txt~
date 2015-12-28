@@ -1,9 +1,0 @@
-More : https://github.com/github/hub
-
-git init
-git clone [repository path]
-git add [file path OR . ]
-git commit -m "message" [file path]
-git push
-	enter username and password
-
