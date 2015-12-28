@@ -1,4 +1,4 @@
-
-
-
 More : https://github.com/github/hub
+
+git init
+git clone [repository path]
