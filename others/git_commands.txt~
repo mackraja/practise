@@ -1,0 +1,19 @@
+More : https://education.github.com/git-cheat-sheet-education.pdf
+
+<!------------- Steps --------------->
+
+git init
+git clone [repository path]
+	git global --config user.name mackraja
+	git global --config user.email montykhanna007@hotmail.com
+	git global --config alias.st status
+	git global --config alias.co checkout
+	git global --config alias.ci commit
+
+git add [file path OR . ]
+git commit -m "message" [file path]
+git push
+	enter username and password
+
+git status -s
+git 
