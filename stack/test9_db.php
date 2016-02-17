@@ -1,7 +1,7 @@
 <?php
 $servername = "localhost";
-$username = "root";
-$password = "bohemia";
+$username = "";
+$password = "";
 $dbname = "test123";
 
 // Create connection
