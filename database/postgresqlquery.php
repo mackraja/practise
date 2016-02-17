@@ -217,9 +217,50 @@ echo 'WITH Values123 AS
 SELECT Values123.Values1
       ,(SELECT SUM("Value") FROM "Values" WHERE Date=Values123.Date AND ID=8) as Values2
       ,Values123.Date 
-FROM Values123';
+FROM Values123'.$newLine;
 
 /*------------------------- Row Number in Mysql -------------------------------------------*/
 echo "SELECT a.i, a.j, count(*) as row_number FROM test9a a
 JOIN test9a b ON a.i = b.i AND a.j >= b.j
-GROUP BY a.i, a.j";
+GROUP BY a.i, a.j $newLine";
+
+/*------------------------- Find Duplicate ids, on basis of column --------------------------*/
+echo "select count(*), description, array_to_string(array_agg(id), ', ') as ids from invoice.invoice_item group by description having count(*)>1 $newLine";
+
+/*------------------------- Find Total rows with data in two different form -----------------*/
+echo "WITH item_arr as (SELECT  rel_innvoicecount,rel_invoice,ids,(rel_innvoicecount+rel_invoice)/rel_innvoicecount as total
+from (
+  select count(rel_invoice) as rel_innvoicecount,rel_invoice,array_to_string(array_agg(id), ', ') as ids from invoice.invoice_item group by rel_invoice having count(rel_invoice)>1
+) as o) SELECT (SELECT COUNT(*) FROM item_arr) AS count,* 
+FROM item_arr $newLine $newLine;
+
+
+SELECT (SELECT row_number() over () from invoice.invoice_item group by rel_invoice having count(rel_invoice)>1 order by row_number desc limit 1) as total ,rel_innvoicecount,rel_invoice,ids,(rel_innvoicecount+rel_invoice)/rel_innvoicecount as total
+from (
+  SELECT count(rel_invoice) as rel_innvoicecount,rel_invoice,array_to_string(array_agg(id), ', ') as ids from invoice.invoice_item group by rel_invoice having count(rel_invoice)>1
+) as o";
+
+/*------------------------- Generate Series between start and end date with data with conditions -----------------*/
+echo "SELECT to_char(series::date, 'YYYY-MM-DD') as date, count(impressions) as COUNT
+FROM generate_series('2015-03-01'::date
+                   , '2015-03-31'::date
+                   , '1 day'::interval)  as series
+LEFT JOIN affilired.affiliateimpressions as imp 
+ON imp.stamp = series AND rel_access = 3827 
+GROUP BY 1
+ORDER BY 1 ASC";
+
+/*------------------------- Get duplicate record with count -----------------*/
+echo "SELECT COUNT(*), player_id, status FROM test1 GROUP BY player_id, status HAVING count(*) > 1";
+
+/*------------------------- Generate series with data in mysql -----------------*/
+// You have to import generate_series.sql in your table.
+
+echo "CALL generate_series_date_minute('2016-02-01 11:50', '2016-02-01 17:00:00', 10);
+
+SELECT (s.series + interval 10 MINUTE) AS series, count(t.time_left)
+FROM series_tmp AS s LEFT JOIN tbl_student_log AS t
+ON true
+AND t.time_left > s.series
+AND t.time_left <= (s.series + interval 10 MINUTE)
+GROUP BY s.series limit 31";
